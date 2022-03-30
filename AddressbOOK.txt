@@ -1,0 +1,282 @@
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 24
+Server version: 8.0.28 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| prakash            |
+| saiprakashdb       |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+UC1 :- Creating AddressBook Service
+mysql> create database addressbookservice;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| addressbookservice |
+| information_schema |
+| mysql              |
+| performance_schema |
+| prakash            |
+| saiprakashdb       |
+| sys                |
++--------------------+
+7 rows in set (0.00 sec)
+mysql> use addressbookservice;
+Database changed
+mysql> create table addressbook (id int not null auto_increment, FirstName varchar(50) not null, LastName varchar(62) not null, Address varchar(50) not null, City varchar(63) not null, State varchar(70) not null, ZipCode varchar(20) not null, PhoneNumber varchar(30) not null, Email varchar(50) not null, Primary Key(id));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc addressbook;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| id          | int         | NO   | PRI | NULL    | auto_increment |
+| FirstName   | varchar(50) | NO   |     | NULL    |                |
+| LastName    | varchar(62) | NO   |     | NULL    |                |
+| Address     | varchar(50) | NO   |     | NULL    |                |
+| City        | varchar(63) | NO   |     | NULL    |                |
+| State       | varchar(70) | NO   |     | NULL    |                |
+| ZipCode     | varchar(20) | NO   |     | NULL    |                |
+| PhoneNumber | varchar(30) | NO   |     | NULL    |                |
+| Email       | varchar(50) | NO   |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+9 rows in set (0.02 sec)
+
+mysql> insert into addressbook (FirstName, LastName, Address, City, State, ZipCode, PhoneNumber, Email) values ('Saiprakash', 'Beemari', 'Ramnagar', 'Karimnagar', 'Telangana', '505001', '9676113169', 'saiprakashbeemari@gmail.com');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from addressbook;
++----+------------+----------+----------+------------+-----------+---------+-------------+-----------------------------+
+| id | FirstName  | LastName | Address  | City       | State     | ZipCode | PhoneNumber | Email                       |
++----+------------+----------+----------+------------+-----------+---------+-------------+-----------------------------+
+|  1 | Saiprakash | Beemari  | Ramnagar | Karimnagar | Telangana | 505001  | 9676113169  | saiprakashbeemari@gmail.com |
++----+------------+----------+----------+------------+-----------+---------+-------------+-----------------------------+
+1 row in set (0.00 sec)
+
+mysql>  insert into addressbook (FirstName, LastName, Address, City, State, ZipCode, PhoneNumber, Email) values ('Manojkumar', 'Gadham', 'Bhagatnagar', 'Kattarampur', 'Telangana', '505002', '9110987654', 'manojkumargadham@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  insert into addressbook (FirstName, LastName, Address, City, State, ZipCode, PhoneNumber, Email) values ('Saiprakash', 'LMDcolony', 'Kothagattu', 'Huzurabad', 'Telangana', '505003', '9112345689', 'chandrareddy@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from addressbook;
++----+------------+-----------+-------------+-------------+-----------+---------+-------------+-----------------------------+
+| id | FirstName  | LastName  | Address     | City        | State     | ZipCode | PhoneNumber | Email                       |
++----+------------+-----------+-------------+-------------+-----------+---------+-------------+-----------------------------+
+|  1 | Saiprakash | Beemari   | Ramnagar    | Karimnagar  | Telangana | 505001  | 9676113169  | saiprakashbeemari@gmail.com |
+|  2 | Manojkumar | Gadham    | Bhagatnagar | Kattarampur | Telangana | 505002  | 9110987654  | manojkumargadham@gmail.com  |
+|  3 | Saiprakash | LMDcolony | Kothagattu  | Huzurabad   | Telangana | 505003  | 9112345689  | chandrareddy@gmail.com      |
++----+------------+-----------+-------------+-------------+-----------+---------+-------------+-----------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select LastName from addressbook ORDER BY LatName;
+ERROR 1054 (42S22): Unknown column 'LatName' in 'order clause'
+mysql> select LastNmae from addressbook ORDER BY LastName;
+ERROR 1054 (42S22): Unknown column 'LastNmae' in 'field list'
+mysql> select LastName from addressbook ORDER BY LastName;
++-----------+
+| LastName  |
++-----------+
+| Beemari   |
+| Gadham    |
+| LMDcolony |
++-----------+
+3 rows in set (0.00 sec)
+
+mysql> select State from addressbook ORDER BY State;
++-----------+
+| State     |
++-----------+
+| Telangana |
+| Telangana |
+| Telangana |
++-----------+
+3 rows in set (0.00 sec)
+
+mysql> Alter table addressbook add Contact_Type varchar(100);
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from addressbook;
++----+------------+-----------+-------------+-------------+-----------+---------+-------------+-----------------------------+--------------+
+| id | FirstName  | LastName  | Address     | City        | State     | ZipCode | PhoneNumber | Email                       | Contact_Type |
++----+------------+-----------+-------------+-------------+-----------+---------+-------------+-----------------------------+--------------+
+|  1 | Saiprakash | Beemari   | Ramnagar    | Karimnagar  | Telangana | 505001  | 9676113169  | saiprakashbeemari@gmail.com | NULL         |
+|  2 | Manojkumar | Gadham    | Bhagatnagar | Kattarampur | Telangana | 505002  | 9110987654  | manojkumargadham@gmail.com  | NULL         |
+|  3 | Saiprakash | LMDcolony | Kothagattu  | Huzurabad   | Telangana | 505003  | 9112345689  | chandrareddy@gmail.com      | NULL         |
++----+------------+-----------+-------------+-------------+-----------+---------+-------------+-----------------------------+--------------+
+3 rows in set (0.01 sec)
+
+
+mysql> Update addressbook set Contact_Type = 'Son' where id =3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+mysql>  Update addressbook set Contact_Type = 'Brother' where id =2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> Update addressbook set Contact_Type = 'Father' where id =1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from addressbook;
++----+------------+-----------+-------------+-------------+-----------+---------+-------------+-----------------------------+--------------+
+| id | FirstName  | LastName  | Address     | City        | State     | ZipCode | PhoneNumber | Email                       | Contact_Type |
++----+------------+-----------+-------------+-------------+-----------+---------+-------------+-----------------------------+--------------+
+|  1 | Saiprakash | Beemari   | Ramnagar    | Karimnagar  | Telangana | 505001  | 9676113169  | saiprakashbeemari@gmail.com | Father       |
+|  2 | Manojkumar | Gadham    | Bhagatnagar | Kattarampur | Telangana | 505002  | 9110987654  | manojkumargadham@gmail.com  | Brother      |
+|  3 | Saiprakash | LMDcolony | Kothagattu  | Huzurabad   | Telangana | 505003  | 9112345689  | chandrareddy@gmail.com      | Son          |
++----+------------+-----------+-------------+-------------+-----------+---------+-------------+-----------------------------+--------------+
+3 rows in set (0.00 sec)
+
+
+mysql> insert into addressbook (FirstName, LastName, Address, City, State, ZipCode, PhoneNumber, Email) values ('Shiva', 'Ram', 'Rekurthi', 'Kothapally', 'Tealngana', '505004', '9112347890', 'shiva@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+
+mysql> select * from addressbook;
++----+------------+-----------+-------------+-------------+-----------+---------+-------------+-----------------------------+--------------+
+| id | FirstName  | LastName  | Address     | City        | State     | ZipCode | PhoneNumber | Email                       | Contact_Type |
++----+------------+-----------+-------------+-------------+-----------+---------+-------------+-----------------------------+--------------+
+|  1 | Saiprakash | Beemari   | Ramnagar    | Karimnagar  | Telangana | 505001  | 9676113169  | saiprakashbeemari@gmail.com | Father       |
+|  2 | Manojkumar | Gadham    | Bhagatnagar | Kattarampur | Telangana | 505002  | 9110987654  | manojkumargadham@gmail.com  | Brother      |
+|  3 | Saiprakash | LMDcolony | Kothagattu  | Huzurabad   | Telangana | 505003  | 9112345689  | chandrareddy@gmail.com      | Son          |
+|  5 | Shiva      | Ram       | Rekurthi    | Kothapally  | Tealngana | 505004  | 9112347890  | shiva@gmail.com             | NULL         |
++----+------------+-----------+-------------+-------------+-----------+---------+-------------+-----------------------------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> Delete from addressbook
+    ->  where FirstName = 'Manojkumar';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from addressbook;
++----+------------+-----------+------------+------------+-----------+---------+-------------+-----------------------------+--------------+
+| id | FirstName  | LastName  | Address    | City       | State     | ZipCode | PhoneNumber | Email                       | Contact_Type |
++----+------------+-----------+------------+------------+-----------+---------+-------------+-----------------------------+--------------+
+|  1 | Saiprakash | Beemari   | Ramnagar   | Karimnagar | Telangana | 505001  | 9676113169  | saiprakashbeemari@gmail.com | Father       |
+|  3 | Saiprakash | LMDcolony | Kothagattu | Huzurabad  | Telangana | 505003  | 9112345689  | chandrareddy@gmail.com      | Son          |
+|  5 | Shiva      | Ram       | Rekurthi   | Kothapally | Tealngana | 505004  | 9112347890  | shiva@gmail.com             | NULL         |
++----+------------+-----------+------------+------------+-----------+---------+-------------+-----------------------------+--------------+
+3 rows in set (0.00 sec)
+mysql> select * from addressbook
+    -> where City = 'Huzurabad';
++----+------------+-----------+------------+-----------+-----------+---------+-------------+------------------------+--------------+
+| id | FirstName  | LastName  | Address    | City      | State     | ZipCode | PhoneNumber | Email                  | Contact_Type |
++----+------------+-----------+------------+-----------+-----------+---------+-------------+------------------------+--------------+
+|  3 | Saiprakash | LMDcolony | Kothagattu | Huzurabad | Telangana | 505003  | 9112345689  | chandrareddy@gmail.com | Son          |
++----+------------+-----------+------------+-----------+-----------+---------+-------------+------------------------+--------------+
+1 row in set (0.00 sec)
+
+
+
+mysql> select * from addressbook
+    -> where State = 'Telangana';
++----+------------+-----------+------------+------------+-----------+---------+-------------+-----------------------------+--------------+
+| id | FirstName  | LastName  | Address    | City       | State     | ZipCode | PhoneNumber | Email                       | Contact_Type |
++----+------------+-----------+------------+------------+-----------+---------+-------------+-----------------------------+--------------+
+|  1 | Saiprakash | Beemari   | Ramnagar   | Karimnagar | Telangana | 505001  | 9676113169  | saiprakashbeemari@gmail.com | Father       |
+|  3 | Saiprakash | LMDcolony | Kothagattu | Huzurabad  | Telangana | 505003  | 9112345689  | chandrareddy@gmail.com      | Son          |
++----+------------+-----------+------------+------------+-----------+---------+-------------+-----------------------------+--------------+
+2 rows in set (0.00 sec)
+
+
+
+mysql>  select Count(*) from addressbook where City = 'Ramnagar';
++----------+
+| Count(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.01 sec)
+
+mysql>  select Count(*) from addressbook where City = 'Karimnagar';
++----------+
+| Count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
+mysql>  select Count(*) from addressbook where State = 'Telangana';
++----------+
+| Count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from addressbook
+    -> where FirstName like 'S%';
++----+------------+-----------+------------+------------+-----------+---------+-------------+-----------------------------+--------------+
+| id | FirstName  | LastName  | Address    | City       | State     | ZipCode | PhoneNumber | Email                       | Contact_Type |
++----+------------+-----------+------------+------------+-----------+---------+-------------+-----------------------------+--------------+
+|  1 | Saiprakash | Beemari   | Ramnagar   | Karimnagar | Telangana | 505001  | 9676113169  | saiprakashbeemari@gmail.com | Father       |
+|  3 | Saiprakash | LMDcolony | Kothagattu | Huzurabad  | Telangana | 505003  | 9112345689  | chandrareddy@gmail.com      | Son          |
+|  5 | Shiva      | Ram       | Rekurthi   | Kothapally | Tealngana | 505004  | 9112347890  | shiva@gmail.com             | NULL         |
++----+------------+-----------+------------+------------+-----------+---------+-------------+-----------------------------+--------------+
+3 rows in set (0.01 sec)
+
+mysql> select * from addressbook
+    -> where City like 'T%';
+Empty set (0.00 sec)
+
+mysql> select * from addressbook
+    -> where City like 'K%';
++----+------------+----------+----------+------------+-----------+---------+-------------+-----------------------------+--------------+
+| id | FirstName  | LastName | Address  | City       | State     | ZipCode | PhoneNumber | Email                       | Contact_Type |
++----+------------+----------+----------+------------+-----------+---------+-------------+-----------------------------+--------------+
+|  1 | Saiprakash | Beemari  | Ramnagar | Karimnagar | Telangana | 505001  | 9676113169  | saiprakashbeemari@gmail.com | Father       |
+|  5 | Shiva      | Ram      | Rekurthi | Kothapally | Tealngana | 505004  | 9112347890  | shiva@gmail.com             | NULL         |
++----+------------+----------+----------+------------+-----------+---------+-------------+-----------------------------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> select Count(PhoneNumber)
+    -> from addressbook
+    -> where City = 'Karimnagar';
++--------------------+
+| Count(PhoneNumber) |
++--------------------+
+|                  1 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select Count(PhoneNumber)
+    -> from addressbook
+    -> where State = 'Telangana';
++--------------------+
+| Count(PhoneNumber) |
++--------------------+
+|                  2 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from addressbook;
++----+------------+-----------+------------+------------+-----------+---------+-------------+-----------------------------+--------------+
+| id | FirstName  | LastName  | Address    | City       | State     | ZipCode | PhoneNumber | Email                       | Contact_Type |
++----+------------+-----------+------------+------------+-----------+---------+-------------+-----------------------------+--------------+
+|  1 | Saiprakash | Beemari   | Ramnagar   | Karimnagar | Telangana | 505001  | 9676113169  | saiprakashbeemari@gmail.com | Father       |
+|  3 | Saiprakash | LMDcolony | Kothagattu | Huzurabad  | Telangana | 505003  | 9112345689  | chandrareddy@gmail.com      | Son          |
+|  5 | Shiva      | Ram       | Rekurthi   | Kothapally | Tealngana | 505004  | 9112347890  | shiva@gmail.com             | NULL         |
++----+------------+-----------+------------+------------+-----------+---------+-------------+-----------------------------+--------------+
+3 rows in set (0.00 sec)
